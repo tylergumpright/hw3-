@@ -1,0 +1,127 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Tyler Gumpright HW 3</title>
+  <meta name="description" content="Tyler Gumpright HW 3">
+  <meta name="author" content="SitePoint">
+
+  <!-- <link rel="stylesheet" href="css/styles.css?v=1.0"> -->
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+  <style type="text/css">
+    body, html {
+      font-family: sans-serif;
+    }
+    
+    #myMap {
+      width: 100%;
+      height: 500px;
+      background-color: gray;
+    }
+    button {
+      width: 200px;
+      height: 73px;
+      margin-bottom: 50px;
+      font-size: 24px;
+      border-radius: 10px;
+      margin-right: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Tyler's Favorite Spots in NYC's Outer Boroughs</h1>
+
+  <button id="one" class="myButton">Queens</button>
+  <button id="two" class="myButton">Brooklyn</button>
+  <button id="three" class="myButton">Bronx</button>
+  <div id="myMap"></div>
+
+
+  <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+  <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+  <script type="text/javascript">
+
+  
+
+
+  
+ 
+  //CartoDB Basemap
+  var layer = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',{
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
+  });
+  var myMapData = [
+    {
+      name: "Socrates Sculpture Park",
+      coord: [40.768517,-73.936567],
+    
+    },
+    {
+      name: "Noguchi Museum",
+      coord: [40.766965,-73.937586]
+    },
+    {
+      name: "Astoria Park",
+      coord: [40.778397,-73.923113]
+},
+{
+      name: "Travers Park",
+      coord: [40.753930,-73.889349]
+    },
+    {
+      name: "Tortilleria Nixtamal",
+      coord: [40.746737,-73.859442]
+    },
+    {
+      name: "Calexico",
+      coord: [40.684177,-74.002624]
+    },
+    {
+      name: "Hell Gate Bridge",
+      coord: [40.797990,-73.916166]
+    },
+  ]
+
+  var queens = [40.764291,-73.898978];
+  var brooklyn = [40.696258,-73.987116];
+  var bronx = [40.799906,-73.918633];
+  var myZoom = 14;
+  //  leaflet
+  var map = L.map('myMap').setView(queens, myZoom);
+  map.addLayer(layer)
+  
+  myMapData.forEach(function(element) {
+    var marker = L.marker(element.coord).addTo(map);
+    marker.bindPopup("<b>Welcome</b><br>This is " + element.name )
+  });
+
+  var panOptions = {
+    animate: true,
+    duration: 2
+  }
+    $(".myButton").click(function() {
+      if($(this).attr('id') == 'one' ) {
+        $(this).css('background-color','orange');
+        map.panTo(queens, panOptions);
+      } else if($(this).attr('id') == 'two' ){
+        $(this).css('background-color','blue');
+        map.panTo(brooklyn, panOptions);
+      } else if($(this).attr('id') == 'three' ){
+        $(this).css('background-color','green');
+        map.panTo(bronx, panOptions);
+      } 
+
+    });
+
+  </script>
+
+  
+</body>
+</html>
